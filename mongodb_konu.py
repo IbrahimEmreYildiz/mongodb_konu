@@ -1,5 +1,12 @@
 import pymongo
 from bson.objectid import ObjectId
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+username= os.getenv("MONGOUSER")
+password= os.getenv("MONGOPASSWORD")
 
 myclient= pymongo.MongoClient('mongodb://localhost:27017')
 mydb= myclient["node-app"]
@@ -9,7 +16,7 @@ print(myclient.list_database_names()) # Mevcut database'leri görüntüler
 
 # UZAKTAKİ SERVER'A BAĞLANMA
 
-myclient= pymongo.MongoClient('mongodb+srv://2020555069e:Tyildiz*20@cluster0.opbgw3p.mongodb.net/')
+myclient= pymongo.MongoClient(f'mongodb+srv://{username}:{password}@cluster0.opbgw3p.mongodb.net/')
 mydb= myclient['node-app'] # Database bağlanma
 mycollection= mydb["products"] # Products collection'una gider. Eğer yoksa kendisi oluşturur
 print(myclient.list_database_names()) # Database isimlerini listeleme
